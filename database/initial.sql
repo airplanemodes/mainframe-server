@@ -2,9 +2,9 @@ CREATE DATABASE mainframe;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(16) UNIQUE,
-    email VARCHAR(60) UNIQUE,
-    passwd VARCHAR(255),
+    username VARCHAR(16) UNIQUE NOT NULL,
+    email VARCHAR(60) UNIQUE NOT NULL,
+    passwd VARCHAR(255) NOT NULL,
     entered DATE
 );
 
@@ -26,4 +26,6 @@ VALUES ('First entry', 'This is first Mainframe blog entry. It is created in the
 ALTER TABLE posts ADD author VARCHAR(16);
 UPDATE posts SET author = 'duke' WHERE id = 1;
 
-DELETE FROM users WHERE id > 1; 
+DELETE FROM users WHERE id > 1;
+
+-- CREATE USER maintain WITH PASSWORD 'admin' Superuser;
