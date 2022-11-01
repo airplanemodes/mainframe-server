@@ -29,3 +29,15 @@ UPDATE posts SET author = 'duke' WHERE id = 1;
 DELETE FROM users WHERE id > 1;
 
 -- CREATE USER maintain WITH PASSWORD 'admin' Superuser;
+CREATE TABLE entries (
+    id BIGSERIAL PRIMARY KEY,
+    title VARCHAR(60) NOT NULL,
+    content VARCHAR(65536) NOT NULL,
+    author VARCHAR(16) NOT NULL,
+    node VARCHAR(32) NOT NULL,
+    points INT,
+    created DATE
+);
+
+INSERT INTO entries (title, content, author, node, points, created)
+VALUES ('Second entry', 'Some work was done for user authentication system. Added password hashing function. Registered first user accounts and made first system logins.', 'duke', 'core', 0, '2022-11-01');

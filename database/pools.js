@@ -3,11 +3,13 @@
 *********************/
 const psql = require('pg');
 const { 
-    selectPosts, 
+    selectEntries,
+    createEntry,
     createUser 
 } = require('./queries');
 
 const bcrypt = require('bcrypt');
+const { createToken } = require('../token');
 const pool = new psql.Pool({
     user: "postgres",
     host: "localhost",
@@ -16,12 +18,23 @@ const pool = new psql.Pool({
 });
 
 
-const poolPosts = async(req, res) => {
-    pool.query(selectPosts, (error, results) => {
+const poolEntries = async(req, res) => {
+    pool.query(selectEntries, (error, results) => {
         if (error) throw error;
         res.status(200).json(results.rows);
     });
 };
+
+const writeEntry = async(req, res) => {
+    const { title, content, author, node, created } = req.body;
+
+    await pool.query(createEntry, [title, content, author, node, created], (error, results) => {
+        if (error) throw error;
+
+        console.log(results.rows);
+        res.status(201).send("entry was written to the database");
+    });
+}
 
 const userLogin = async(req, res) => {
     const { username, passwd } = req.body;
@@ -37,7 +50,9 @@ const userLogin = async(req, res) => {
 
                 if (isMatch) {
                     console.log('success');
-                    res.status(200).send(results.rows[0].username);
+                    let token = createToken(results.rows[0].id)
+                    // res.status(200).send(results.rows[0].username);
+                    res.json({ created: token })
                 } else {
                     console.log('something wrong');
                     res.status(400).send("password are incorrect")
@@ -48,9 +63,7 @@ const userLogin = async(req, res) => {
 };
 
 const userCreate = async(req, res) => {
-    const { username, email, passwd } = req.body;
-    const dateObj = new Date();
-    const entered = `${dateObj.getFullYear()}-${dateObj.getMonth()+1}-${dateObj.getDate()}`;
+    const { username, email, passwd, entered } = req.body;
 
     let hashed = await bcrypt.hash(passwd, 10)
     
@@ -69,14 +82,26 @@ const userCreate = async(req, res) => {
             }
         } else {
             res.status(201).send("user created");
-            // TODO: redirect
         }
     });
 };
 
+const userInfo = async(req, res) => {
+    try {
+        await pool.query("SELECT * FROM users WHERE id = $1", [req.tokenData.id], (error, results) => {
+            if (error) throw error;
+            res.json(results.rows[0].username);
+        })
+    } catch (error) {
+        console.log(error);
+    }  
+}
+
 
 module.exports = {
-    poolPosts,
+    poolEntries,
+    writeEntry,
     userCreate,
-    userLogin
+    userLogin,
+    userInfo
 };

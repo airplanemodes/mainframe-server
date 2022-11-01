@@ -1,16 +1,11 @@
 const express = require('express');
-const { userCreate } = require('../database/pools');
+const { userCreate, userLogin, userInfo } = require('../database/pools');
+const token = require('../token');
 const router = express.Router();
 
-router.get('/', async(req, res) => {
-    try {
-        res.json({msg: "users api"});
-    } catch (error) {
-        console.log(error);
-        res.status(401).json(error);
-    }
-});
-
+// http://localhost:4000/users
+router.get('/', token.authToken, userInfo);
 router.post('/', userCreate);
+router.post('/login', userLogin);
 
 module.exports = router;
