@@ -16,5 +16,5 @@ routes(app);
 |   Back to server
 *********************/
 app.listen(4000, () => {
-    console.log("Server working on port 4000");
+    console.log("Server works on port 4000");
 });

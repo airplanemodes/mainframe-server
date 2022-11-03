@@ -17,6 +17,9 @@ const mainlogin = async(req, res) => {
     const { username, passwd } = req.body;
     await pool.query("SELECT * FROM users WHERE username = $1", [username], (error, results) => {
         if (error) throw error;
+        if (results.rows.length == 0) {
+            res.status(400).send("username is not registered");
+        }
         if (results.rows.length > 0) {
             bcrypt.compare(passwd, results.rows[0].passwd, (error, isMatch) => {
                 if (error) throw error;
@@ -24,8 +27,7 @@ const mainlogin = async(req, res) => {
                     const token = middleJWT.createToken(results.rows[0].id)
                     res.json({ created: token })
                 } else {
-                    console.log('something wrong');
-                    res.status(400).send("password are incorrect")
+                    res.status(400).send("password are incorrect");
                 }
             });
         }

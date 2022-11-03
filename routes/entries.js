@@ -31,6 +31,11 @@ const readEntry = async(req, res) => {
     });
 };
 
+const deleteEntry = async(req, res) => {
+    // TODO: delete function
+    res.send('DELETE request');
+};
+
 const writeEntry = async(req, res) => {
     const { title, content, author, node, created } = req.body;
 
@@ -44,5 +49,6 @@ const writeEntry = async(req, res) => {
 router.get('/', poolEntries);
 router.post('/', writeEntry);
 router.get('/:id', readEntry);
+router.delete('/:id', deleteEntry);
 
 module.exports = router;
