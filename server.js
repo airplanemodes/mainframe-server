@@ -1,20 +1,13 @@
-/********************
-|   Essentials
-*********************/
 const express = require('express');
 const { allowAccessControl, routes } = require('./routes/config');
-const app = express();
+const mainframe = express();
 
-app.use(express.json());
+mainframe.use(express.json());
 
-allowAccessControl(app);
-routes(app);
+allowAccessControl(mainframe);
+routes(mainframe);
 
-
-
-/********************
-|   Back to server
-*********************/
-app.listen(4000, () => {
-    console.log("Server works on port 4000");
+const port = process.env.PORT || 4000;
+mainframe.listen(port, () => {
+    console.log(`*** Server running on port ${port}`);
 });

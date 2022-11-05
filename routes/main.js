@@ -1,16 +1,8 @@
-const psql = require('pg');
 const bcrypt = require('bcrypt');
 const { Router } = require('express');
 const router = Router();
-
+const pool = require('../database/pool');
 const middleJWT = require('../token');
-
-const pool = new psql.Pool({
-    user: "postgres",
-    host: "localhost",
-    database: "mainframe",
-    port: 5432
-});
 
 
 const mainlogin = async(req, res) => {
