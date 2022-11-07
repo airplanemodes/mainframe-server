@@ -5,6 +5,7 @@ const middleJWT = require('../token');
 const { selectEntries, 
         selectEntry, 
         createEntry,
+        updateEntry,
         deleteEntryById } = require('../database/queries');
 
 
@@ -20,7 +21,8 @@ const poolEntries = async(req, res) => {
 
 const poolNodeEntries = async(req, res) => {
     const node = req.params.name;
-    await pool.query("SELECT * FROM entries WHERE node = $1", [node], (error, results) => {
+    await pool.query("SELECT * FROM entries WHERE node = $1", [node],
+        (error, results) => {
         if (error) throw error;
         res.status(200).json(results.rows);
     });
@@ -32,6 +34,16 @@ const readEntry = async(req, res) => {
         if (error) throw error;
         res.status(200).json(results.rows[0]);
     });
+};
+
+const editEntry = async(req, res) => {
+    const { title, content, author, node, points, created, id } = req.body;
+    await pool.query(updateEntry,
+        [ title, content, author, node, points, created, id ],
+        (error, results) => {
+            if (error) throw error;
+            res.status(200).json(results.rows);
+        });
 };
 
 const deleteEntry = async(req, res) => {
@@ -56,6 +68,7 @@ const writeEntry = async(req, res) => {
 // http://localhost:4000/entries
 router.get('/', poolEntries);
 router.get('/:id', readEntry);
+router.put('/:id', editEntry);
 router.get('/node/:name', poolNodeEntries);
 router.post('/', middleJWT.authToken, writeEntry);
 router.delete('/:id', middleJWT.authToken, deleteEntry);

@@ -6,6 +6,7 @@ function createToken(user_id) {
 
 function authToken(req, res, next) {
     let validToken = req.header("x-auth-token");
+    // console.log(validToken);
     if (!validToken) {
         return res.status(401).json({ msg: "Token needed" });
     }
@@ -15,7 +16,7 @@ function authToken(req, res, next) {
         req.tokenData = decodeToken;
         next();
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         res.status(401).json({ error: "Token invalid or expired" });        
     }
 };
