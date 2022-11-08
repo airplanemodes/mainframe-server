@@ -1,11 +1,13 @@
 const mainRoute = require('./main');
 const usersRoute = require('./users');
 const entriesRoute = require('./entries');
+const repliesRoute = require('./replies');
 
 exports.routes = (app) => {
     app.use('/', mainRoute);
     app.use('/users', usersRoute);
     app.use('/entries', entriesRoute);
+    app.use('/replies', repliesRoute);
 
     app.use((req, res) => {
         res.json({ msg: "node not found" });

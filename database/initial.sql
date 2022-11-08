@@ -35,3 +35,16 @@ UPDATE users SET moderator = true WHERE id = 60;
 
 ALTER TABLE users ADD points INT NOT NULL;
 UPDATE users SET points = 0 WHERE id > 0;
+
+CREATE TABLE replies (
+    id BIGSERIAL PRIMARY KEY,
+    body VARCHAR(255) NOT NULL,
+    username VARCHAR(16) NOT NULL,
+    authorid INT NOT NULL,
+    parentid INT,
+    entryid INT NOT NULL
+);
+
+INSERT INTO replies (body, username, authorid, entryid) VALUES ('Replies developing.', 'alice', '1', 15);
+INSERT INTO replies (body, username, authorid, entryid) VALUES ('Interesting', 'alice', '1', 17);
+INSERT INTO replies (body, username, authorid, entryid) VALUES ('Really interesting!', 'alice', '1', 17);

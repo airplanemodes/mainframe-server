@@ -3,8 +3,9 @@ const router = Router();
 const pool = require('../database/pool');
 const middleJWT = require('../token');
 const { selectEntries, 
+        selectEntriesByNode,
         selectEntry, 
-        createEntry,
+        insertEntry,
         updateEntry,
         deleteEntryById } = require('../database/queries');
 
@@ -21,7 +22,7 @@ const poolEntries = async(req, res) => {
 
 const poolNodeEntries = async(req, res) => {
     const node = req.params.name;
-    await pool.query("SELECT * FROM entries WHERE node = $1", [node],
+    await pool.query(selectEntriesByNode, [node],
         (error, results) => {
         if (error) throw error;
         res.status(200).json(results.rows);
@@ -57,7 +58,7 @@ const deleteEntry = async(req, res) => {
 const writeEntry = async(req, res) => {
     const { title, content, author, node, points, created } = req.body;
 
-    await pool.query(createEntry,
+    await pool.query(insertEntry,
         [title, content, author, node, points, created],
         (error, results) => {
             if (error) throw error;

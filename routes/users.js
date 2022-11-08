@@ -3,7 +3,7 @@ const { Router } = require('express');
 const router = Router();
 const pool = require('../database/pool');
 const middleJWT = require('../token');
-const { selectUser, createUser } = require('../database/queries');
+const { selectUser, insertUser } = require('../database/queries');
 
 
 
@@ -12,7 +12,7 @@ const userCreate = async(req, res) => {
 
     let hashed = await bcrypt.hash(passwd, 10)
     
-    await pool.query(createUser, 
+    await pool.query(insertUser, 
         [username, email, hashed, points, entered, moderator], 
         (error, results) => {
             if (error) {
