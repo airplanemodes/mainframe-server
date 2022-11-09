@@ -11,6 +11,10 @@ const insertUser = "INSERT INTO users (username, email, passwd, points, entered,
 const selectReplies = "SELECT * FROM replies";
 const insertReply = "INSERT INTO replies (body, username, authorid, entryid) VALUES($1, $2, $3, $4)"
 
+const selectCredits = "SELECT * FROM credits";
+const insertCredit = "INSERT INTO credits (entryid, userid) VALUES ($1, $2)";
+const deleteCredit = "DELETE FROM credits WHERE entryid = $1 AND userid = $2";
+
 module.exports = {
     selectEntry,
     selectEntries,
@@ -21,5 +25,8 @@ module.exports = {
     selectUser,
     insertUser,
     selectReplies,
-    insertReply
+    insertReply,
+    selectCredits,
+    insertCredit,
+    deleteCredit
 };

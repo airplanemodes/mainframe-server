@@ -48,3 +48,12 @@ CREATE TABLE replies (
 INSERT INTO replies (body, username, authorid, entryid) VALUES ('Replies developing.', 'alice', '1', 15);
 INSERT INTO replies (body, username, authorid, entryid) VALUES ('Interesting', 'alice', '1', 17);
 INSERT INTO replies (body, username, authorid, entryid) VALUES ('Really interesting!', 'alice', '1', 17);
+
+CREATE TABLE credits (
+    id BIGSERIAL PRIMARY KEY,
+    entryid INT NOT NULL,
+    userid INT NOT NULL
+);
+
+INSERT INTO credits (entryid, userid) VALUES (19, 1);
+INSERT INTO credits (entryid, userid) VALUES (17, 1);
