@@ -3,7 +3,11 @@ const { Router } = require('express');
 const router = Router();
 const pool = require('../database/pool');
 const middleJWT = require('../token');
-const { selectUser, insertUser } = require('../database/queries');
+const { 
+    selectUserById,
+    selectUserByUsername,
+    insertUser 
+} = require('../database/queries');
 
 
 
@@ -35,22 +39,36 @@ const userCreate = async(req, res) => {
 
 
 
-const userInfo = async(req, res) => {
+const userInfoById = async(req, res) => {
     try {
-        await pool.query(selectUser, [req.tokenData.id], (error, results) => {
+        await pool.query(selectUserById, [req.tokenData.id], (error, results) => {
             if (error) throw error;
             delete results.rows[0].passwd;
             res.json(results.rows[0]);
-        })
+        });
     } catch (error) {
         console.log(error);
-    }  
-}
+    };
+};
+
+const userInfoByUsername = async(req, res) => {
+    try {
+        const username = req.params.username;
+        await pool.query(selectUserByUsername, [username], (error, results) => {
+            if (error) throw error;
+            delete results.rows[0].passwd;
+            res.json(results.rows[0]);
+        });
+    } catch (error) {
+        console.log(error);
+    };
+};
 
 
 
 // http://localhost:4000/users
-router.get('/', middleJWT.authToken, userInfo);
+router.get('/', middleJWT.authToken, userInfoById);
+router.get('/:username', middleJWT.authToken, userInfoByUsername);
 router.post('/', userCreate);
 
 module.exports = router;
