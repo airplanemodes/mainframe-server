@@ -1,3 +1,4 @@
+// *** Core ***
 const express = require('express');
 const http = require('http');
 const socketio = require('socket.io');
@@ -18,12 +19,29 @@ const io = socketio(server, {
   }
 });
 
-// Run when client connects
-io.on('connection', socket => {
-  console.log("New user connected");
-  
-})
 
+
+// *** Socket.io configuration ***
+// TODO: Listening only on the main page of client-side
+// Run when client connects on the 'connection' event
+io.on('connection', (socket) => {
+  console.log("* New user connected to chat");
+
+  // Send to client
+  socket.emit('msgFromServer', 'Welcome to Mainframe!');
+
+  // Broadcast to all, except the user
+  socket.broadcast.emit('msgFromServer', 'User connected');
+
+  socket.on('disconnect', () => {
+    // Send to all
+    io.emit('msgFromServer', 'User disconnected');
+  });
+});
+
+
+
+// ** Server launch ***
 const port = process.env.PORT || 4000;
 server.listen(port, () => {
     console.log(`*** Server running on port ${port}`);
