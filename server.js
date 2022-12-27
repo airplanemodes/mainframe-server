@@ -25,13 +25,18 @@ const io = socketio(server, {
 // TODO: Listening only on the main page of client-side
 // Run when client connects on the 'connection' event
 io.on('connection', (socket) => {
-  console.log("* New user connected to chat");
+  console.log("* New client connected");
 
   // Send to client
   socket.emit('msgFromServer', 'Welcome to Mainframe!');
 
   // Broadcast to all, except the user
   socket.broadcast.emit('msgFromServer', 'User connected');
+
+  socket.on('msgFromClient', (data) => {
+    console.log(data);
+    io.emit('msgFromServer', data);
+  })
 
   socket.on('disconnect', () => {
     // Send to all
@@ -41,7 +46,7 @@ io.on('connection', (socket) => {
 
 
 
-// ** Server launch ***
+// *** Server launch ***
 const port = process.env.PORT || 4000;
 server.listen(port, () => {
     console.log(`*** Server running on port ${port}`);
