@@ -11,35 +11,25 @@ routes(mainframe);
 
 const server = http.createServer(mainframe);
 const io = socketio(server, {
-  // https://socket.io/docs/v4/handling-cors/
   cors: {
-    origin: "http://localhost:3000",
-    // allowedHeaders: ["my-custom-header"],
-    // credentials: true
+    origin: "http://localhost:3000"
   }
 });
 
 
 
 // *** Socket.io configuration ***
-// TODO: Listening only on the main page of client-side
-// Run when client connects on the 'connection' event
 io.on('connection', (socket) => {
   console.log("* New client connected");
 
-  // Send to client
   socket.emit('msgFromServer', 'Welcome to Mainframe!');
-
-  // Broadcast to all, except the user
   socket.broadcast.emit('msgFromServer', 'User connected');
 
   socket.on('msgFromClient', (data) => {
-    console.log(data);
     io.emit('msgFromServer', data);
   })
 
   socket.on('disconnect', () => {
-    // Send to all
     io.emit('msgFromServer', 'User disconnected');
   });
 });
