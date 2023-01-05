@@ -20,18 +20,17 @@ const io = socketio(server, {
 
 // *** Socket.io configuration ***
 io.on('connection', (socket) => {
-  console.log("* New client connected");
+  // socket.emit('msgFromServer', 'Welcome to Mainframe!');
 
-  socket.emit('msgFromServer', 'Welcome to Mainframe!');
-  socket.broadcast.emit('msgFromServer', 'User connected');
+  // socket.broadcast.emit('msgFromServer', 'User connected');
 
   socket.on('msgFromClient', (data) => {
     io.emit('msgFromServer', data);
   })
 
-  socket.on('disconnect', () => {
-    io.emit('msgFromServer', 'User disconnected');
-  });
+  // socket.on('disconnect', () => {
+  //   io.emit('msgFromServer', 'User disconnected');
+  // });
 });
 
 

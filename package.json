@@ -19,7 +19,7 @@
     "binary"
   ],
   "author": "airplanemodes",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/airplanemodes/mainframe-server/issues"
   },
