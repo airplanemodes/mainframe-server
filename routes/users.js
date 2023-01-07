@@ -4,12 +4,31 @@ const router = Router();
 const pool = require('../database/pool');
 const middleJWT = require('../token');
 const { 
+  selectAllUsers,
   selectUserById,
   selectUserByUsername,
   insertUser 
 } = require('../database/queries');
 
 
+
+const allUsersIdsUsernames = async(req, res) => {
+  try {
+    await pool.query(selectAllUsers, (error, results) => {
+    if (error) throw error;
+      for (let i = 0; i < results.rows.length; i++) {
+        delete results.rows[i].email;
+        delete results.rows[i].passwd;
+        delete results.rows[i].points;
+        delete results.rows[i].entered;
+        delete results.rows[i].moderator;
+      }
+      res.json(results.rows);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const userCreate = async(req, res) => {
   const { username, email, passwd, points, entered, moderator } = req.body;
@@ -65,6 +84,7 @@ const userInfoByUsername = async(req, res) => {
 
 
 // http://localhost:4000/users
+router.get('/all', middleJWT.authToken, allUsersIdsUsernames);
 router.get('/', middleJWT.authToken, userInfoById);
 router.get('/:username', middleJWT.authToken, userInfoByUsername);
 router.post('/', userCreate);

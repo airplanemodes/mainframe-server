@@ -57,3 +57,13 @@ CREATE TABLE credits (
 
 INSERT INTO credits (entryid, userid) VALUES (19, 1);
 INSERT INTO credits (entryid, userid) VALUES (17, 1);
+
+CREATE TABLE privates (
+  id BIGSERIAL PRIMARY KEY,
+  sender VARCHAR(16) NOT NULL,
+  receiver VARCHAR(16) NOT NULL,
+  body VARCHAR(1024) NOT NULL
+);
+
+INSERT INTO privates (sender, receiver, body)
+VALUES ('stella', 'alice', 'Lets get this party started');
