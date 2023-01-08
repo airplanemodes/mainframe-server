@@ -17,6 +17,8 @@ const selectCredits = "SELECT * FROM credits";
 const insertCredit = "INSERT INTO credits (entryid, userid) VALUES ($1, $2)";
 const deleteCredit = "DELETE FROM credits WHERE entryid = $1 AND userid = $2";
 
+const selectPrivates = "SELECT * FROM privates";
+
 module.exports = {
     selectEntry,
     selectEntries,
@@ -32,5 +34,6 @@ module.exports = {
     insertReply,
     selectCredits,
     insertCredit,
-    deleteCredit
+    deleteCredit,
+    selectPrivates
 };

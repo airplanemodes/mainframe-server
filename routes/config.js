@@ -3,6 +3,7 @@ const usersRoute = require('./users');
 const entriesRoute = require('./entries');
 const repliesRoute = require('./replies');
 const creditsRoute = require('./credits');
+const privatesRoute = require('./privates');
 
 exports.routes = (app) => {
     app.use('/', mainRoute);
@@ -10,6 +11,7 @@ exports.routes = (app) => {
     app.use('/entries', entriesRoute);
     app.use('/replies', repliesRoute);
     app.use('/credits', creditsRoute);
+    app.use('/privates', privatesRoute);
 
     app.use((req, res) => {
         res.json({ msg: "node not found" });
