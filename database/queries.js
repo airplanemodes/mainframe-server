@@ -11,13 +11,14 @@ const selectUserByUsername = "SELECT * FROM users WHERE username = $1";
 const insertUser = "INSERT INTO users (username, email, passwd, points, entered, moderator) VALUES($1, $2, $3, $4, $5, $6)";
 
 const selectReplies = "SELECT * FROM replies";
-const insertReply = "INSERT INTO replies (body, username, authorid, entryid) VALUES($1, $2, $3, $4)"
+const insertReply = "INSERT INTO replies (body, username, authorid, entryid) VALUES($1, $2, $3, $4)";
 
 const selectCredits = "SELECT * FROM credits";
 const insertCredit = "INSERT INTO credits (entryid, userid) VALUES ($1, $2)";
 const deleteCredit = "DELETE FROM credits WHERE entryid = $1 AND userid = $2";
 
 const selectPrivates = "SELECT * FROM privates";
+const insertPrivate = "INSERT INTO privates (sender, receiver, body, subject) VALUES($1, $2, $3, $4)";
 
 module.exports = {
     selectEntry,
@@ -35,5 +36,6 @@ module.exports = {
     selectCredits,
     insertCredit,
     deleteCredit,
-    selectPrivates
+    selectPrivates,
+    insertPrivate
 };
