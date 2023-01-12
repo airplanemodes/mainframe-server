@@ -19,6 +19,10 @@ const deleteCredit = "DELETE FROM credits WHERE entryid = $1 AND userid = $2";
 
 const selectPrivates = "SELECT * FROM privates";
 const insertPrivate = "INSERT INTO privates (sender, receiver, body, subject) VALUES($1, $2, $3, $4)";
+const senderDelete = "UPDATE privates SET sender_del = true WHERE id = $1";
+const senderRecover = "UPDATE privates SET sender_del = false WHERE id = $1";
+const receiverDelete = "UPDATE privates SET receiver_del = true WHERE id = $1";
+const receiverRecover = "UPDATE privates SET receiver_del = false WHERE id = $1";
 
 module.exports = {
     selectEntry,
@@ -37,5 +41,9 @@ module.exports = {
     insertCredit,
     deleteCredit,
     selectPrivates,
-    insertPrivate
+    insertPrivate,
+    senderDelete,
+    senderRecover,
+    receiverDelete,
+    receiverRecover
 };

@@ -68,3 +68,7 @@ CREATE TABLE privates (
 INSERT INTO privates (sender, receiver, body)
 VALUES ('stella', 'alice', 'Lets get this party started');
 ALTER TABLE privates ADD subject VARCHAR(16);
+ALTER TABLE privates ADD sender_del BOOLEAN;
+ALTER TABLE privates ADD receiver_del BOOLEAN;
+UPDATE privates SET sender_del = false WHERE id > 0;
+UPDATE privates SET receiver_del = false WHERE id > 0;

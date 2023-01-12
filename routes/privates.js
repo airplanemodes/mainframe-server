@@ -2,7 +2,16 @@ const { Router } = require('express');
 const router = Router();
 const pool = require('../database/pool');
 const middleJWT = require('../token');
-const { selectPrivates, insertPrivate } = require('../database/queries');
+const { 
+  selectPrivates, 
+  insertPrivate,
+  senderDelete,
+  senderRecover,
+  receiverDelete,
+  receiverRecover
+} = require('../database/queries');
+
+
 
 const poolPrivates = async(req, res) => {
   await pool.query(selectPrivates, (error, results) => {
