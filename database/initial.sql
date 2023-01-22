@@ -72,3 +72,7 @@ ALTER TABLE privates ADD sender_del BOOLEAN;
 ALTER TABLE privates ADD receiver_del BOOLEAN;
 UPDATE privates SET sender_del = false WHERE id > 0;
 UPDATE privates SET receiver_del = false WHERE id > 0;
+ALTER TABLE privates ADD receiver_full_del BOOLEAN;
+ALTER TABLE privates ADD sender_full_del BOOLEAN;
+UPDATE privates SET sender_full_del = false WHERE id > 0;
+UPDATE privates SET receiver_full_del = false WHERE id > 0;

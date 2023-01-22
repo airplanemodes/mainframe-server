@@ -46,10 +46,28 @@ const senderDel = async(req, res) => {
   });
 }
 
+const receiverRec = async(req, res) => {
+  const id = req.params.id;
+  await pool.query(receiverRecover, [id], (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+}
+
+const senderRec = async(req, res) => {
+  const id = req.params.id;
+  await pool.query(senderRecover, [id], (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+}
+
 // http://localhost:4000/privates
 router.get('/', middleJWT.authToken, poolPrivates);
 router.post('/', middleJWT.authToken, sendPrivate);
 router.put('/receiver-del/:id', middleJWT.authToken, receiverDel);
 router.put('/sender-del/:id', middleJWT.authToken, senderDel);
+router.put('/receiver-rec/:id', middleJWT.authToken, receiverRec);
+router.put('/sender-rec/:id', middleJWT.authToken, senderRec);
 
 module.exports = router;
