@@ -23,6 +23,8 @@ const senderDelete = "UPDATE privates SET sender_del = true WHERE id = $1";
 const senderRecover = "UPDATE privates SET sender_del = false WHERE id = $1";
 const receiverDelete = "UPDATE privates SET receiver_del = true WHERE id = $1";
 const receiverRecover = "UPDATE privates SET receiver_del = false WHERE id = $1";
+const senderFullDelete = "UPDATE privates SET sender_full_del = true WHERE id = $1";
+const receiverFullDelete = "UPDATE privates SET receiver_full_del = true WHERE id = $1";
 
 module.exports = {
     selectEntry,
@@ -45,5 +47,7 @@ module.exports = {
     senderDelete,
     senderRecover,
     receiverDelete,
-    receiverRecover
+    receiverRecover,
+    senderFullDelete,
+    receiverFullDelete
 };
