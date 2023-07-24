@@ -16,7 +16,7 @@ exports.routes = (app) => {
     app.use((req, res) => {
         res.json({ msg: "node not found" });
     });
-};
+}
 
 exports.allowAccessControl = (app) => { 
     app.all('*', function (req, res, next) {
@@ -26,4 +26,4 @@ exports.allowAccessControl = (app) => {
         res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, x-auth-token');
         next();
     });
-};
+}

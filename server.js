@@ -15,15 +15,15 @@ const server = http.createServer(mainframe);
 
 // *** Socket.io configuration ***
 const io = socketio(server, {
-  cors: {
-    origin: "http://localhost:3000"
-  }
+    cors: {
+        origin: "http://localhost:3000"
+    }
 });
 
 io.on('connection', (socket) => {
-  socket.on('msgFromClient', (data) => {
-    io.emit('msgFromServer', data);
-  });
+    socket.on('msgFromClient', (data) => {
+        io.emit('msgFromServer', data);
+    });
 });
 
 
@@ -32,5 +32,5 @@ io.on('connection', (socket) => {
 const hostname = "localhost";
 const port = process.env.PORT || 4000;
 server.listen(port, hostname, () => {
-  console.log(`*** Server running at http://${hostname}:${port}/`);
+    console.log(`*** Server running at http://${hostname}:${port}/`);
 });

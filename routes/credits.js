@@ -12,7 +12,7 @@ const poolCredits = async(req, res) => {
         if (error) throw error;
         res.status(200).json(results.rows);
     });
-};
+}
 
 const addCredit = async(req, res) => {
     const { entryid, userid } = req.body; 
@@ -20,7 +20,7 @@ const addCredit = async(req, res) => {
         if (error) throw error;
         res.status(200).json(results.rows);
     });
-};
+}
 
 const removeCredit = async(req, res) => {
     const { entryid, userid } = req.body;
@@ -28,7 +28,7 @@ const removeCredit = async(req, res) => {
         if (error) throw error;
         res.status(200).json(results.rows);
     });
-};
+}
 
 // http://localhost:4000/credits
 router.get('/', poolCredits);
