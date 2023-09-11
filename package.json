@@ -1,7 +1,7 @@
 {
   "name": "mainframe-server",
   "version": "1.0.0",
-  "description": "Mainframe server-side",
+  "description": "Mainframe server-side code",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

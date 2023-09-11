@@ -11,7 +11,6 @@ const {
 } = require('../database/queries');
 
 
-
 const allUsersIdsUsernames = async(req, res) => {
     try {
         await pool.query(selectAllUsers, (error, results) => {
@@ -25,7 +24,9 @@ const allUsersIdsUsernames = async(req, res) => {
             }
             res.json(results.rows);
         });
-    } catch (error) {
+    }
+    
+    catch (error) {
         console.log(error);
     }
 }
@@ -45,12 +46,12 @@ const userCreate = async(req, res) => {
                     case 'users_email_key':
                         res.status(400).send("email already taken");
                         break;
-                default:
-                    res.status(400).send(error.message);
+                    default:
+                        res.status(400).send(error.message);
                 }
-            } else {
-                res.status(201).send("user created");
             }
+            
+            else res.status(201).send("user created");
         });
 }
 
@@ -63,7 +64,9 @@ const userInfoById = async(req, res) => {
             delete results.rows[0].passwd;
             res.json(results.rows[0]);
         });
-    } catch (error) {
+    }
+    
+    catch (error) {
         console.log(error);
     }
 }
@@ -76,7 +79,9 @@ const userInfoByUsername = async(req, res) => {
             delete results.rows[0].passwd;
             res.json(results.rows[0]);
         });
-    } catch (error) {
+    }
+    
+    catch (error) {
         console.log(error);
     }
 }

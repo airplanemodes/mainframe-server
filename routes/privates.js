@@ -14,7 +14,6 @@ const {
 } = require('../database/queries');
 
 
-
 const poolPrivates = async(req, res) => {
     await pool.query(selectPrivates, (error, results) => {
         if (error) throw error;

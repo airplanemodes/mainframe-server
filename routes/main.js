@@ -20,7 +20,7 @@ const mainlogin = async(req, res) => {
                             const token = middleJWT.createToken(results.rows[0].id);
                             res.json({ created: token });
                         } else res.status(400).send("password are incorrect");
-                    });
+                });
             }
         });
 }
