@@ -10,8 +10,10 @@ const { selectEntries,
         deleteEntryById } = require('../database/queries');
 
 
-
 const poolEntries = async(req, res) => {
+    // pagination config
+    // const { count, page } = req.query;
+
     await pool.query(selectEntries, (error, results) => {
         if (error) throw error;
         res.status(200).json(results.rows);
@@ -27,10 +29,10 @@ const poolNodeEntries = async(req, res) => {
     });
 }
 
-const poolNodeTotal = async(req, res) => {
-    const node = req.params.name;
-    // TODO
-}
+// const poolNodeTotal = async(req, res) => {
+//     const node = req.params.name;
+//     // TODO
+// }
 
 const readEntry = async(req, res) => {
     const id = req.params.id;
@@ -74,7 +76,7 @@ router.get('/', poolEntries);
 router.get('/:id', readEntry);
 router.put('/:id', editEntry);
 router.get('/node/:name', poolNodeEntries);
-router.get('/total/:name', poolNodeTotal);
+// router.get('/total/:name', poolNodeTotal);
 router.post('/', middleJWT.authToken, writeEntry);
 router.delete('/:id', middleJWT.authToken, deleteEntry);
 

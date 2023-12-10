@@ -25,11 +25,11 @@ const allUsersIdsUsernames = async(req, res) => {
             res.json(results.rows);
         });
     }
-    
     catch (error) {
         console.log(error);
     }
 }
+
 
 const userCreate = async(req, res) => {
     const { username, email, passwd, points, entered, moderator } = req.body;
@@ -50,11 +50,9 @@ const userCreate = async(req, res) => {
                         res.status(400).send(error.message);
                 }
             }
-            
             else res.status(201).send("user created");
         });
 }
-
 
 
 const userInfoById = async(req, res) => {
@@ -65,11 +63,11 @@ const userInfoById = async(req, res) => {
             res.json(results.rows[0]);
         });
     }
-    
     catch (error) {
         console.log(error);
     }
 }
+
 
 const userInfoByUsername = async(req, res) => {
     try {
@@ -80,7 +78,6 @@ const userInfoByUsername = async(req, res) => {
             res.json(results.rows[0]);
         });
     }
-    
     catch (error) {
         console.log(error);
     }
