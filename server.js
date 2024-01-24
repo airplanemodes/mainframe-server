@@ -11,8 +11,6 @@ routes(mainframe);
 
 const server = http.createServer(mainframe);
 
-
-
 // *** Socket.io configuration ***
 const io = socketio(server, {
     cors: {

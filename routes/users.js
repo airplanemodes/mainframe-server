@@ -47,7 +47,8 @@ const userCreate = async(req, res) => {
                         res.status(400).send("email already taken");
                         break;
                     default:
-                        res.status(400).send(error.message);
+                        // res.status(400).send(error.message);
+                        res.status(400).send("server error");
                 }
             }
             else res.status(201).send("user created");
